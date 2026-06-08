@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GameNight Finder</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <!-- Task: Static HTML/CSS header and search bar -->
+    <header class="site-header">
+        <h1>GameNight Finder</h1>
+        <p>Find the best deals across multiple platforms.</p>
+        <div class="search-container">
+            <input type="text" id="gameSearch" placeholder="Search for a game...">
+            <button id="searchBtn">Search</button>
+        </div>
+    </header>
+
+    <!-- Task: Static HTML/CSS layout for the game cards grid -->
+    <main class="grid-container">
+        <!-- Static placeholders for UI design -->
+        <article class="game-card">
+            <img src="https://via.placeholder.com/300x150" alt="Game cover placeholder">
+            <div class="card-content">
+                <h2>Cyberpunk 2077</h2>
+                <p>Platform: Steam</p>
+                <p class="price">$29.99 <span class="discount">-50%</span></p>
+                <button class="details-btn">View Details</button>
+            </div>
+        </article>
+
+        <article class="game-card">
+            <img src="https://via.placeholder.com/300x150" alt="Game cover placeholder">
+            <div class="card-content">
+                <h2>Hades</h2>
+                <p>Platform: Nintendo Switch</p>
+                <p class="price">$12.49 <span class="discount">-50%</span></p>
+                <button class="details-btn">View Details</button>
+            </div>
+        </article>
+    </main>
+
+    <!-- Task: Static HTML/CSS for the game details modal -->
+    <div id="gameModal" class="modal">
+        <div class="modal-content">
+            <span class="close-btn">&times;</span>
+            <h2>Game Details Placeholder</h2>
+            <p><strong>Description:</strong> This is a static placeholder for the game description that will be fetched
+                from the RAWG API next week.</p>
+            <p><strong>Historical Low:</strong> $9.99</p>
+            <p><strong>Current Stores:</strong> Steam, GOG, Epic Games</p>
+        </div>
+    </div>
+</body>
+
+</html>
