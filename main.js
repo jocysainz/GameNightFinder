@@ -32,14 +32,29 @@ document.addEventListener('DOMContentLoaded', async () => {
             const modalStores = document.querySelector('.modal-content p:nth-of-type(3)');
 
             modalTitle.innerText = title;
-            modalDesc.innerHTML = `<strong>Description:</strong> Fetching details from RAWG...`;
+            modalDesc.innerHTML = `<strong>Description:</strong> Fetching details...`;
             modalLow.innerHTML = `<strong>Current Price:</strong> ${price}`;
-            modalStores.style.display = 'none';
+            modalStores.style.display = 'block'; 
+            modalStores.innerHTML = `<strong>Historical Low:</strong> Checking...`; 
 
             toggleModal(true);
 
+            // Fetch Description from RAWG
             const description = await fetchGameDescription(title);
             modalDesc.innerHTML = `<strong>Description:</strong> ${description}`;
+
+            // Fetch Historical Low from CheapShark
+            try {
+                const searchRes = await fetch(`https://www.cheapshark.com/api/1.0/games?title=${title}&limit=1`);
+                const searchData = await searchRes.json();
+                if (searchData.length > 0) {
+                    modalStores.innerHTML = `<strong>Historical Low:</strong> $${searchData[0].cheapest}`;
+                } else {
+                    modalStores.innerHTML = `<strong>Historical Low:</strong> Data unavailable`;
+                }
+            } catch (err) {
+                modalStores.innerHTML = `<strong>Historical Low:</strong> Data unavailable`;
+            }
         }
         
         // Handle Wishlist Save/Remove

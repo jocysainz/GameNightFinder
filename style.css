@@ -119,10 +119,12 @@ body {
     padding: var(--spacing-lg);
     border-radius: var(--border-rad);
     width: 90%;
-    max-width: 500px;
+    max-width: 600px;
     position: relative;
+    max-height: 70vh;
+    overflow-y: auto;
+    line-height: 1.5;
 }
-
 .close-btn {
     position: absolute;
     top: var(--spacing-md);
