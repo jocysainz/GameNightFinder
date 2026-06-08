@@ -23,7 +23,7 @@ body {
     color: var(--text-main);
 }
 
-/* Header & Search Bar */
+/* Header & Logo */
 .site-header {
     text-align: center;
     padding: var(--spacing-lg);
@@ -32,25 +32,38 @@ body {
 }
 
 .site-header h1 {
+    font-size: 2.5rem;
     cursor: pointer;
-    transition: color 0.3s ease;
+    background: linear-gradient(90deg, #3b82f6, #8b5cf6);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    transition: transform 0.3s ease;
 }
 
 .site-header h1:hover {
-    color: var(--accent-color);
+    transform: scale(1.05);
 }
 
+/* Search Bar & Buttons */
 .search-container {
     margin-top: var(--spacing-md);
 }
 
 .search-container input {
-    padding: var(--spacing-sm);
-    width: 300px;
-    border-radius: var(--border-rad);
-    border: 1px solid #475569;
-    background-color: var(--bg-dark);
+    padding: var(--spacing-sm) var(--spacing-md);
+    width: 350px;
+    border-radius: 20px;
+    border: 2px solid #334155;
+    background-color: rgba(30, 41, 59, 0.5);
     color: var(--text-main);
+    outline: none;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.search-container input:focus {
+    border-color: var(--accent-color);
+    box-shadow: 0 0 10px rgba(59, 130, 246, 0.3);
 }
 
 .search-container button {
@@ -70,11 +83,20 @@ body {
     padding: var(--spacing-lg);
 }
 
+/* Base Card Styles */
 .game-card {
     background-color: var(--card-bg);
     border-radius: var(--border-rad);
     overflow: hidden;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+    position: relative;
+    /* Needed to position badges */
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.game-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 10px 20px rgba(59, 130, 246, 0.4);
 }
 
 .game-card img {
@@ -82,8 +104,39 @@ body {
     display: block;
 }
 
+/* The "Hero" Featured Card Layout */
+.game-card:first-child {
+    grid-column: span 2;
+    grid-row: span 2;
+}
+
+.game-card:first-child img {
+    height: 100%;
+    max-height: 350px;
+    object-fit: cover;
+}
+
+@media (max-width: 768px) {
+    .game-card:first-child {
+        grid-column: span 1;
+        grid-row: span 1;
+    }
+}
+
+/* Card Content & Footer Layout */
 .card-content {
     padding: var(--spacing-md);
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+.card-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: auto;
+    padding-top: var(--spacing-md);
 }
 
 .price {
@@ -92,10 +145,9 @@ body {
     font-weight: bold;
 }
 
-.discount {
+.card-footer .price {
+    margin-top: 0;
     color: var(--discount-color);
-    font-size: 1rem;
-    margin-left: var(--spacing-sm);
 }
 
 .details-btn {
@@ -109,54 +161,32 @@ body {
     width: 100%;
 }
 
-/* Game Details Modal (Static Design) */
-.modal {
-    display: none;
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.7);
-    justify-content: center;
-    align-items: center;
-    z-index: 9999;
+.card-footer .details-btn {
+    margin-top: 0;
+    width: auto;
 }
 
-.modal-content {
-    background-color: var(--card-bg);
-    padding: var(--spacing-lg);
-    border-radius: var(--border-rad);
-    width: 90%;
-    max-width: 600px;
-    position: relative;
-    max-height: 70vh;
-    overflow-y: auto;
-    line-height: 1.5;
-}
-.close-btn {
+/* Wishlist Save Button */
+.wishlist-btn {
     position: absolute;
-    top: var(--spacing-md);
-    right: var(--spacing-md);
-    font-size: 1.5rem;
+    top: 10px;
+    right: 10px;
+    background-color: rgba(0, 0, 0, 0.8);
+    color: #fbbf24;
+    border: 1px solid #fbbf24;
+    padding: 5px 10px;
+    border-radius: 4px;
     cursor: pointer;
+    z-index: 10;
+    transition: background 0.2s;
 }
 
-/* Week 7: Animations & Polish */
-.game-card {
-    position: relative;
-    /* Needed to position badges */
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
+.wishlist-btn:hover {
+    background-color: #fbbf24;
+    color: black;
 }
 
-/* Task: Add CSS hover animations to game cards */
-.game-card:hover {
-    transform: translateY(-8px);
-    box-shadow: 0 10px 20px rgba(59, 130, 246, 0.4);
-    /* Blue glow */
-}
-
-/* Task: Add CSS pulse animation for the Deal Alert badge */
+/* Deal Badge & Pulse Animation */
 .deal-badge {
     position: absolute;
     top: 10px;
@@ -188,22 +218,36 @@ body {
     }
 }
 
-/* Wishlist Save Button Styling */
-.wishlist-btn {
-    position: absolute;
-    top: 10px;
-    right: 10px;
-    background-color: rgba(0, 0, 0, 0.8);
-    color: #fbbf24;
-    border: 1px solid #fbbf24;
-    padding: 5px 10px;
-    border-radius: 4px;
-    cursor: pointer;
-    z-index: 10;
-    transition: background 0.2s;
+/* Game Details Modal */
+.modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7);
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
 }
 
-.wishlist-btn:hover {
-    background-color: #fbbf24;
-    color: black;
+.modal-content {
+    background-color: var(--card-bg);
+    padding: var(--spacing-lg);
+    border-radius: var(--border-rad);
+    width: 90%;
+    max-width: 600px;
+    position: relative;
+    max-height: 70vh;
+    overflow-y: auto;
+    line-height: 1.5;
+}
+
+.close-btn {
+    position: absolute;
+    top: var(--spacing-md);
+    right: var(--spacing-md);
+    font-size: 1.5rem;
+    cursor: pointer;
 }

@@ -6,7 +6,7 @@ export function renderGameCards(games, containerId, isDeal = false) {
     const wishlist = JSON.parse(localStorage.getItem('gamenight_wishlist') || '[]');
 
     if (games.length === 0) {
-        container.innerHTML = '<p style="text-align:center; width:100%;">No games found.</p>';
+        container.innerHTML = '<p style="text-align:center; width:100%; color: var(--text-main);">No games found.</p>';
         return;
     }
 
@@ -28,8 +28,10 @@ export function renderGameCards(games, containerId, isDeal = false) {
             <img src="${image || 'https://via.placeholder.com/300x150'}" alt="${title}">
             <div class="card-content">
                 <h2>${title}</h2>
-                <p class="price">${price}</p>
-                <button class="details-btn" data-id="${isDeal ? game.dealID : game.id}">View Details</button>
+                <div class="card-footer">
+                    <p class="price">${price}</p>
+                    <button class="details-btn" data-id="${isDeal ? game.dealID : game.id}">View Details</button>
+                </div>
             </div>
         `;
         container.appendChild(article);
