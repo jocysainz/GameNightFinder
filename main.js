@@ -6,6 +6,11 @@ document.addEventListener('DOMContentLoaded', async () => {
     // 1. Initial Load & Home Button Logic
     const loadHomePage = async () => {
         document.getElementById('gameSearch').value = ''; // Clears the search bar
+        
+        // Instantly clears the screen and shows a loading message
+        const container = document.querySelector('.grid-container');
+        container.innerHTML = '<p style="text-align:center; width:100%; color: var(--text-main);">Loading Top Deals...</p>';
+        
         const topDeals = await fetchTopDeals();
         renderGameCards(topDeals, '.grid-container', true);
     };
@@ -25,6 +30,14 @@ document.addEventListener('DOMContentLoaded', async () => {
         if (query) {
             const searchResults = await searchRawgGames(query);
             renderGameCards(searchResults, '.grid-container', false);
+        }
+    });
+
+    // Make the "Enter" key work
+    searchInput.addEventListener('keypress', (e) => {
+        if (e.key === 'Enter') {
+            e.preventDefault(); // Stops the page from accidentally reloading
+            searchBtn.click();  // Simulates a physical click on the search button
         }
     });
 
