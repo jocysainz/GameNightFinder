@@ -103,7 +103,6 @@ body {
 /* Game Details Modal (Static Design) */
 .modal {
     display: none;
-    /* Will be toggled with JS in Week 6 */
     position: fixed;
     top: 0;
     left: 0;
@@ -112,6 +111,7 @@ body {
     background-color: rgba(0, 0, 0, 0.7);
     justify-content: center;
     align-items: center;
+    z-index: 9999;
 }
 
 .modal-content {
