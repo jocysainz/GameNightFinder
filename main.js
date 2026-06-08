@@ -2,9 +2,19 @@ import { fetchTopDeals, searchRawgGames, fetchGameDescription } from './api.js';
 import { renderGameCards, toggleModal } from './ui.js';
 
 document.addEventListener('DOMContentLoaded', async () => {
-    // 1. Load initial top deals on page load
-    const topDeals = await fetchTopDeals();
-    renderGameCards(topDeals, '.grid-container', true);
+    
+    // 1. Initial Load & Home Button Logic
+    const loadHomePage = async () => {
+        document.getElementById('gameSearch').value = ''; // Clears the search bar
+        const topDeals = await fetchTopDeals();
+        renderGameCards(topDeals, '.grid-container', true);
+    };
+
+    // Run it immediately when the page loads
+    await loadHomePage();
+
+    // Run it again whenever someone clicks the main "GameNight Finder" title
+    document.querySelector('.site-header h1').addEventListener('click', loadHomePage);
 
     // 2. Connect search bar input to RAWG API fetch function
     const searchBtn = document.getElementById('searchBtn');
