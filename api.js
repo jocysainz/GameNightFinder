@@ -7,7 +7,7 @@ export async function fetchTopDeals() {
         const data = await response.json();
         return data.slice(0, 8); // Return top 8 deals for the grid
     } catch (error) {
-        console.error("Error fetching deals:", error);
+        //console.error("Error fetching deals:", error);
         return [];
     }
 }
@@ -19,7 +19,7 @@ export async function searchRawgGames(query) {
         const data = await response.json();
         return data.results;
     } catch (error) {
-        console.error("Error searching games:", error);
+        //console.error("Error searching games:", error);
         return [];
     }
 }
@@ -39,7 +39,7 @@ export async function fetchGameDescription(title) {
         }
         return "Game description not found.";
     } catch (error) {
-        console.error("Error fetching description:", error);
+        //console.error("Error fetching description:", error);
         return "Could not load description.";
     }
 }
