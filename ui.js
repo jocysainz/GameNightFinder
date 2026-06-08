@@ -21,7 +21,7 @@ export function renderGameCards(games, containerId, isDeal = false) {
         const article = document.createElement('article');
         article.className = 'game-card';
         article.innerHTML = `
-            ${isDeal ? '<span class="deal-badge">Hot Deal!</span>' : ''}
+            ${isDeal && parseFloat(game.savings) > 50 ? '<span class="deal-badge">50%+ OFF!</span>' : ''}
             <button class="wishlist-btn" data-title="${title}" data-price="${price}" data-image="${image}" aria-label="Save to wishlist">
                 ${isSaved ? '★ Remove' : '☆ Save'}
             </button>

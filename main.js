@@ -1,4 +1,4 @@
-import { fetchTopDeals, searchRawgGames } from './api.js';
+import { fetchTopDeals, searchRawgGames, fetchGameDescription } from './api.js';
 import { renderGameCards, toggleModal } from './ui.js';
 
 document.addEventListener('DOMContentLoaded', async () => {
@@ -19,9 +19,28 @@ document.addEventListener('DOMContentLoaded', async () => {
     });
 
     // 3. UI Interactions (Modal & Wishlist)
-    document.querySelector('.grid-container').addEventListener('click', (e) => {
+    document.querySelector('.grid-container').addEventListener('click', async (e) => {
         // Handle Modal
-        if (e.target.classList.contains('details-btn')) toggleModal(true);
+        if (e.target.classList.contains('details-btn')) {
+            const card = e.target.closest('.game-card');
+            const title = card.querySelector('h2').innerText;
+            const price = card.querySelector('.price').innerText;
+
+            const modalTitle = document.querySelector('.modal-content h2');
+            const modalDesc = document.querySelector('.modal-content p:nth-of-type(1)');
+            const modalLow = document.querySelector('.modal-content p:nth-of-type(2)');
+            const modalStores = document.querySelector('.modal-content p:nth-of-type(3)');
+
+            modalTitle.innerText = title;
+            modalDesc.innerHTML = `<strong>Description:</strong> Fetching details from RAWG...`;
+            modalLow.innerHTML = `<strong>Current Price:</strong> ${price}`;
+            modalStores.style.display = 'none';
+
+            toggleModal(true);
+
+            const description = await fetchGameDescription(title);
+            modalDesc.innerHTML = `<strong>Description:</strong> ${description}`;
+        }
         
         // Handle Wishlist Save/Remove
         if (e.target.classList.contains('wishlist-btn')) {

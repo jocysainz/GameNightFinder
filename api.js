@@ -23,3 +23,23 @@ export async function searchRawgGames(query) {
         return [];
     }
 }
+
+export async function fetchGameDescription(title) {
+    try {
+        // 1. Search RAWG for the game by its title
+        const searchRes = await fetch(`https://api.rawg.io/api/games?key=${RAWG_API_KEY}&search=${title}`);
+        const searchData = await searchRes.json();
+        
+        if (searchData.results.length > 0) {
+            const gameId = searchData.results[0].id;
+            // 2. Fetch the specific game details using its ID to get the description
+            const detailsRes = await fetch(`https://api.rawg.io/api/games/${gameId}?key=${RAWG_API_KEY}`);
+            const detailsData = await detailsRes.json();
+            return detailsData.description_raw || "No description available.";
+        }
+        return "Game description not found.";
+    } catch (error) {
+        console.error("Error fetching description:", error);
+        return "Could not load description.";
+    }
+}
