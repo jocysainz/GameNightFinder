@@ -130,3 +130,69 @@ body {
     font-size: 1.5rem;
     cursor: pointer;
 }
+
+/* Week 7: Animations & Polish */
+.game-card {
+    position: relative;
+    /* Needed to position badges */
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* Task: Add CSS hover animations to game cards */
+.game-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 10px 20px rgba(59, 130, 246, 0.4);
+    /* Blue glow */
+}
+
+/* Task: Add CSS pulse animation for the Deal Alert badge */
+.deal-badge {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    background-color: var(--discount-color);
+    color: white;
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-size: 0.8rem;
+    font-weight: bold;
+    animation: pulse 2s infinite;
+    z-index: 10;
+}
+
+@keyframes pulse {
+    0% {
+        transform: scale(1);
+        box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.7);
+    }
+
+    70% {
+        transform: scale(1.1);
+        box-shadow: 0 0 0 6px rgba(16, 185, 129, 0);
+    }
+
+    100% {
+        transform: scale(1);
+        box-shadow: 0 0 0 0 rgba(16, 185, 129, 0);
+    }
+}
+
+/* Wishlist Save Button Styling */
+.wishlist-btn {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background-color: rgba(0, 0, 0, 0.8);
+    color: #fbbf24;
+    border: 1px solid #fbbf24;
+    padding: 5px 10px;
+    border-radius: 4px;
+    cursor: pointer;
+    z-index: 10;
+    transition: background 0.2s;
+}
+
+.wishlist-btn:hover {
+    background-color: #fbbf24;
+    color: black;
+}
